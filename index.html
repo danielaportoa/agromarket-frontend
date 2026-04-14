@@ -11,41 +11,62 @@
     <script src="asset/js/tailwind-config.js"></script>
 
 
-<body class="bg-fondo text-tierra font-sans flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen">
 
-    <nav class="bg-agro text-white p-4 shadow-md">
+    <nav class="bg-green-800 text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold tracking-wider">AgroMarket 🌱</a>
-            <div class="space-x-4">
-                <a href="#" class="hover:text-agro-light">Catálogo</a>
-                <a href="#" class="hover:text-agro-light">Carrito (0)</a>
+            <a href="index.html" class="text-2xl font-bold tracking-wider flex items-center gap-2">
+                AgroMarket 🌿
+            </a>
+            <div class="space-x-6 flex items-center">
+                <a href="index.html" class="hidden md:block hover:text-green-200">Catálogo</a>
+                <a href="https://agromarket-zebh.onrender.com/admin/" target="_blank" class="bg-green-700 hover:bg-green-600 px-4 py-2 rounded-lg text-sm font-bold transition">
+                    Panel Admin ⚙️
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-6xl mx-auto px-6 w-full mb-12">
-        <div id="contenedor-productos" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <p id="mensaje-carga" class="col-span-3 text-center text-xl text-gray-500 font-semibold animate-pulse">
-                Cargando productos desde el servidor... 🚜
+    <main class="flex-grow max-w-6xl mx-auto px-6 w-full py-10">
+        
+        <header class="mb-10 text-center">
+            <h2 class="text-4xl font-extrabold text-green-900 mb-2">Productos del Maule</h2>
+            <p class="text-slate-600">Sustentables, Orgánicos y Directo del Productor</p>
+        </header>
+
+        <div id="contenedor-productos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <p id="mensaje-carga" class="col-span-full text-center text-xl text-slate-400 font-medium animate-pulse py-20">
+                Conectando con el servidor de AgroMarket... 🚜
             </p>
         </div>
-        <div id="carrito-contenedor">
-            <h3>Tu Carrito</h3>
-            <ul id="lista-carrito"></ul>
-            <p>Total: $<span id="total-carrito">0</span></p>
 
-            <button id="btn-comprar" onclick="confirmarCompra()" class="btn btn-success">
+        <div class="fixed bottom-6 right-6 w-80 bg-white border border-green-100 rounded-2xl shadow-2xl p-5 z-40">
+            <div class="flex items-center gap-2 mb-4 border-b pb-2">
+                <span class="text-2xl">🛒</span>
+                <h3 class="text-xl font-bold text-slate-800">Mi Carrito</h3>
+            </div>
+            
+            <ul id="lista-carrito" class="max-h-60 overflow-y-auto mb-4 space-y-2 text-sm text-slate-600">
+                <li class="italic text-center py-4 text-slate-400">Tu carrito está esperando por productos frescos...</li>
+            </ul>
+
+            <div class="flex justify-between font-bold text-lg mb-4 border-t pt-3 text-green-900">
+                <span>Total:</span>
+                <span id="total-carrito">$0</span>
+            </div>
+
+            <button onclick="confirmarCompra()"
+                class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-orange-200 transition-all active:scale-95">
                 Finalizar Compra
             </button>
         </div>
     </main>
-    <footer class="bg-tierra text-white text-center p-4 mt-auto">
-        <p>&copy; 2026 Daniela Porto - Soluciones Tecnológicas para el Agro</p>
+
+    <footer class="bg-slate-900 text-slate-400 text-center p-8 mt-auto">
+        <p class="text-sm font-medium">&copy; 2026 Daniela Portoa - Soluciones Tecnológicas para el Agro 🇨🇱</p>
     </footer>
 
     <script src="asset/js/main.js"></script>
-    <script src="asset/js/carrito_compra.js"></script>
-
-</body>
+    </body>
 
 </html>
