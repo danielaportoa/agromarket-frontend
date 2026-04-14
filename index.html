@@ -10,7 +10,7 @@
 
     <script src="asset/js/tailwind-config.js"></script>
 
-  
+
 <body class="bg-fondo text-tierra font-sans flex flex-col min-h-screen">
 
     <nav class="bg-agro text-white p-4 shadow-md">
@@ -28,6 +28,15 @@
             <p id="mensaje-carga" class="col-span-3 text-center text-xl text-gray-500 font-semibold animate-pulse">
                 Cargando productos desde el servidor... 🚜
             </p>
+        </div>
+        <div id="carrito-contenedor">
+            <h3>Tu Carrito</h3>
+            <ul id="lista-carrito"></ul>
+            <p>Total: $<span id="total-carrito">0</span></p>
+
+            <button id="btn-comprar" onclick="confirmarCompra()" class="btn btn-success">
+                Finalizar Compra
+            </button>
         </div>
     </main>
     <footer class="bg-tierra text-white text-center p-4 mt-auto">
