@@ -1,6 +1,6 @@
 const API_URL = 'https://agromarket-zebh.onrender.com/api/productos/';
 const API_COMPRA = 'https://agromarket-zebh.onrender.com/api/finalizar-compra/';
-const URL_BASE = 'https://agromarket-zebh.onrender.com'; // Para las imágenes
+const URL_BASE = 'https://agromarket-zebh.onrender.com';
 
 async function cargarProductos() {
     const contenedor = document.getElementById('contenedor-productos');
@@ -20,10 +20,12 @@ async function cargarProductos() {
         productos.forEach(producto => {
             const hayStock = producto.stock > 0;
             const precioCLP = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(producto.precio);
-            
-            const imagenUrl = producto.imagen 
-                ? (producto.imagen.startsWith('http') ? producto.imagen : URL_BASE + producto.imagen)
-                : 'https://via.placeholder.com/400x300?text=Sin+Foto';
+
+            const imagenUrl = producto.imagen_url
+                ? producto.imagen_url 
+                : (producto.imagen
+                    ? (producto.imagen.startsWith('http') ? producto.imagen : BASE_URL + producto.imagen)
+                    : 'https://via.placeholder.com/400x300?text=Sin+Foto');
 
             const tarjetaHTML = `
                 <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-all p-4">
@@ -35,10 +37,10 @@ async function cargarProductos() {
                     </div>
                     <div class="flex justify-between items-center mt-auto">
                         <span class="text-xl font-bold text-green-700">${precioCLP}</span>
-                        ${hayStock 
-                            ? `<button onclick="agregarAlCarrito(${producto.id}, '${producto.nombre}', ${producto.precio})" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-bold">Añadir</button>`
-                            : `<button disabled class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed">Agotado</button>`
-                        }
+                        ${hayStock
+                    ? `<button onclick="agregarAlCarrito(${producto.id}, '${producto.nombre}', ${producto.precio})" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-bold">Añadir</button>`
+                    : `<button disabled class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed">Agotado</button>`
+                }
                     </div>
                 </div>
             `;
@@ -66,10 +68,10 @@ function actualizarCarrito() {
     localStorage.setItem('agroCarrito', JSON.stringify(carrito));
     const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
     const totalDinero = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-    
+
     const btnCarrito = document.getElementById('btn-ver-carrito');
     if (btnCarrito) btnCarrito.innerText = `🛒 Carrito (${totalItems})`;
-    
+
     const txtTotal = document.getElementById('total-carrito');
     if (txtTotal) txtTotal.innerText = `$${totalDinero}`;
 }
@@ -78,7 +80,7 @@ async function confirmarCompra() {
     if (carrito.length === 0) return alert("El carrito está vacío.");
 
     const total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
-    
+
     try {
         const res = await fetch(API_COMPRA, {
             method: 'POST',
